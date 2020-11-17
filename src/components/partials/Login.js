@@ -40,7 +40,7 @@ class Login extends Component {
                   <label>Email</label>
                   <input
                     type="email"
-                    className="form control"
+                    className="form-control"
                     placeholder="Email"
                     value={this.state.email}
                     onChange={(e) => this.setState({ email: e.target.value })}
@@ -50,7 +50,7 @@ class Login extends Component {
                   <label>Password</label>
                   <input
                     type="password"
-                    className="form control"
+                    className="form-control"
                     placeholder="Password"
                     value={this.state.password}
                     onChange={(e) =>

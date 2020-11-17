@@ -8,6 +8,10 @@ class Signup extends Component {
     this.state = {
       email: "",
       password: "",
+      name: "",
+      username: "",
+      passwordAgain: "",
+      error: "",
     };
   }
   render() {
@@ -21,12 +25,27 @@ class Signup extends Component {
                 onSubmit={(e) => {
                   e.preventDefault();
                   if (this.props.socket) {
+                    let empty = 0;
+                    Object.keys(this.state).map((key) => {
+                      if (this.state[key] === "") {
+                        empty += 1;
+                      }
+                    });
+                    if (empty > 0) {
+                      return this.setState({ error: "All Fields Required" });
+                    } else {
+                      if (this.state.password !== this.state.passwordAgain) {
+                        return this.setState({ error: "Passwords Must Match" });
+                      }
+                    }
                     this.props.socket.send(
                       JSON.stringify({
                         type: "SIGNUP",
                         data: {
                           email: this.state.email,
                           password: this.state.password,
+                          name: this.state.name,
+                          username: this.state.username,
                         },
                       })
                     );
@@ -36,31 +55,88 @@ class Signup extends Component {
                 <p>
                   Already have an account? <Link to="/login">Login</Link>
                 </p>
-                <div className="form-group">
-                  <label>Email</label>
-                  <input
-                    type="email"
-                    className="form control"
-                    placeholder="Email"
-                    value={this.state.email}
-                    onChange={(e) => this.setState({ email: e.target.value })}
-                  />
+                {this.state.error ? (
+                  <p className="text-danger">{this.state.error}</p>
+                ) : null}
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Name:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Name"
+                        value={this.state.name}
+                        onChange={(e) =>
+                          this.setState({ name: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Username:</label>
+                      <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Username"
+                        value={this.state.username}
+                        onChange={(e) =>
+                          this.setState({ username: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Email:</label>
+                      <input
+                        type="email"
+                        className="form-control"
+                        placeholder="Email"
+                        value={this.state.email}
+                        onChange={(e) =>
+                          this.setState({ email: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
-                <div className="form-group">
-                  <label>Password</label>
-                  <input
-                    type="password"
-                    className="form control"
-                    placeholder="Password"
-                    value={this.state.password}
-                    onChange={(e) =>
-                      this.setState({ password: e.target.value })
-                    }
-                  />
+                <div className="row">
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Password:</label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password"
+                        value={this.state.password}
+                        onChange={(e) =>
+                          this.setState({ password: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
+                  <div className="col-md-6">
+                    <div className="form-group">
+                      <label>Password (again):</label>
+                      <input
+                        type="password"
+                        className="form-control"
+                        placeholder="Password (again"
+                        value={this.state.passwordAgain}
+                        onChange={(e) =>
+                          this.setState({ passwordAgain: e.target.value })
+                        }
+                      />
+                    </div>
+                  </div>
                 </div>
-                <button className="btn btn-primary" type="submit">
-                  Sig Up
-                </button>
+                <div className="text-center">
+                  <button className="btn btn-primary" type="submit">
+                    Sig Up
+                  </button>
+                </div>
               </form>
             </div>
           </div>
