@@ -24,7 +24,7 @@ class Signup extends Component {
               <form
                 onSubmit={(e) => {
                   e.preventDefault();
-                  if (this.props.socket) {
+                  if (this.props.socket) { 
                     let empty = 0;
                     Object.keys(this.state).map((key) => {
                       if (this.state[key] === "") {

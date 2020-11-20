@@ -14,6 +14,14 @@ class Sidebar extends Component {
       })
     );
   };
+  findOrCreateThread = (id) => {
+    this.props.socket.send(
+      JSON.stringify({
+        type: "FIND_THREAD",
+        data: [this.props.user.id, id],
+      })
+    );
+  };
   render() {
     return (
       <div className="sidebar">
@@ -33,28 +41,38 @@ class Sidebar extends Component {
         {this.state.search ? (
           <ul className="thread-list">
             <label>Results</label>
-            {this.props.users.map((user, ui) => {
-              return (
-                <li key={ui}>
-                  <Link to="/thread">
-                    <i className="zmdi zmdi-account-circle" />
-                    <h5>{user.name}</h5>
-                    <p>{user.email}</p>
-                  </Link>
-                </li>
-              );
-            })}
+            {this.props.users
+              .filter((u) => u.id !== this.props.user.id)
+              .map((user, ui) => {
+                return (
+                  <li key={ui}>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        this.findOrCreateThread(user.id);
+                      }}
+                      to="/thread"
+                    >
+                      <i className="zmdi zmdi-account-circle" />
+                      <h5>{user.name}</h5>
+                      <p>{user.email}</p>
+                    </a>
+                  </li>
+                );
+              })}
           </ul>
         ) : (
           <ul className="thread-list">
             <label>Messages</label>
-            <li>
-              <Link to="/thread">
-                <i className="zmdi zmdi-account-circle" />
-                <h5>Name</h5>
-                <p>This is the last message</p>
-              </Link>
-            </li>
+            {this.props.threads.map((thread, threadIndex) => {
+              return (
+                <Link to="/thread">
+                  <i className="zmdi zmdi-account-circle" />
+                  <h5>{thread.id}</h5>
+                  <p>This is the last message</p>
+                </Link>
+              );
+            })}
           </ul>
         )}
       </div>
