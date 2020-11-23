@@ -9,8 +9,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import "./assets/css/swag.css";
 class App extends React.Component {
   componentDidMount() {
-    this.props.setupSocket();
+    this.props.setupSocket(this.props.token, this.props.userId);
   }
+
   render() {
     return (
       <div className="App">
@@ -75,8 +76,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  setupSocket: () => {
-    dispatch(ChatActions.setupSocket());
+  setupSocket: (token, userId) => {
+    dispatch(ChatActions.setupSocket(token, userId));
   },
   logout: () => {
     dispatch(AuthActions.logout());

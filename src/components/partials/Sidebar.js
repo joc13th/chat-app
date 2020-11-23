@@ -66,7 +66,7 @@ class Sidebar extends Component {
             <label>Messages</label>
             {this.props.threads.map((thread, threadIndex) => {
               return (
-                <Link to="/thread">
+                <Link to={`/${thread.id}`}>
                   <i className="zmdi zmdi-account-circle" />
                   <h5>{thread.id}</h5>
                   <p>This is the last message</p>
