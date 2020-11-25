@@ -37,6 +37,7 @@
   height: calc(100vh-42px);
   overflow: hidden;
   overflow-y: scroll;
+  padding-bottom: 10px;
 }
 
 ul.thread-list {

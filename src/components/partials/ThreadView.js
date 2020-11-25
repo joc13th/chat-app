@@ -28,14 +28,22 @@ class ThreadView extends Component {
   };
   render() {
     return (
-      <div className="main-view">
+      <div className="main-view" id="main-view">
         {this.props.threads
           .filter((thread) => thread.id === this.props.match.paramas.threadId)
           .map((thread) => {
             return (
               <div className="message-container" key={i}>
                 {thread.Messages.map((mesg, mi) => {
-                  return <Message msg={msg} key={mi} />;
+                  return (
+                    <Message
+                      msg={msg}
+                      key={mi}
+                      profile={
+                        thread.profiles.filter((p) => p.id === msg.userId)[0]
+                      }
+                    />
+                  );
                 })}
               </div>
             );

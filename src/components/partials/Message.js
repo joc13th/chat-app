@@ -12,7 +12,13 @@ class Message extends Component {
         }`}
       >
         <i className="zmdi zmdi-account-circle" />
-        <div className="chat-bubble">{this.props.msg.content}</div>
+        <div
+          className="chat-bubble"
+          title={this.props.profile.name}
+          data-toggle="tooltip"
+        >
+          {this.props.msg.content}
+        </div> 
       </div>
     );
   }

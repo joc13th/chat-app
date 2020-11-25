@@ -1,5 +1,6 @@
 import * as AuthActions from "./authActions";
 
+/* global $*/
 export const setupSocket = (token, userId) => {
   return (dispatch) => {
     const socket = new WebSocket("ws://localhost:8080");
@@ -64,6 +65,9 @@ export const setupSocket = (token, userId) => {
               message: data.message,
             },
           });
+          documen.getElementById(
+            "main-view"
+          ).scrollTop = documen.getElementById("main-view").scrollHeight;
         default:
       }
     };

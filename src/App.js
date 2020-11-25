@@ -6,12 +6,13 @@ import * as AuthActions from "./store/actions/authActions";
 import Messenger from "./components/pages/Messenger";
 import Auth from "./components/pages/Auth";
 import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap/dist/js/bootstrap.min.js";
 import "./assets/css/swag.css";
+require("bootstrap")
 class App extends React.Component {
   componentDidMount() {
     this.props.setupSocket(this.props.token, this.props.userId);
   }
-
   render() {
     return (
       <div className="App">
